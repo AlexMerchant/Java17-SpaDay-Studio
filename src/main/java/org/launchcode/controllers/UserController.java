@@ -17,21 +17,11 @@ public class UserController {
         return "user/add";
     }
 
-    @PostMapping
-    public String processAddUserForm(Model model, @ModelAttribute @Valid User user, Errors errors, String verify) {
-//        model.addAttribute("user", user);
-        model.addAttribute("verify", verify);
-//        model.addAttribute("username", user.getUsername());
-//        model.addAttribute("email", user.getEmail());
-        if (errors.hasErrors()) {
-            return "user/add";
-        }
-
-        if (user.getPassword().equals(verify)) {
+    @PostMapping("")
+    public String processAddUserForm(Model model, @ModelAttribute @Valid User user, Errors errors) {
+        if (!errors.hasErrors()) {
             return "user/index";
-        }
-        else {
-            model.addAttribute("error", "Passwords do not match");
+        } else {
             return "user/add";
         }
     }
